@@ -14,8 +14,8 @@ public class Telefone {
         this.id = contadorIds++;
     }
 
-    public Telefone(long id) {
-        this.id = id;
+    public Telefone(String qlqrcoisa) {
+
     }
 
 

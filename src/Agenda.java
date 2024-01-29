@@ -12,19 +12,19 @@ public class Agenda {
     private static final String ARQUIVO_CONTATOS = "contatos.txt";
     final List<Contato> contatos;
 
-    public Agenda() {
+    public Agenda() throws IOException {
         this.contatos = new ArrayList<>();
         this.carregarContatos();
         this.runMenu();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Agenda();
 
     }
 
 
-    private void runMenu() {
+    private void runMenu() throws IOException {
         int choice = 0;
         Scanner sc = new Scanner(System.in);
         Contato contato = new Contato();
@@ -52,7 +52,7 @@ public class Agenda {
 
     }
 
-    private void executAcction(int choice) {
+    private void executAcction(int choice) throws IOException {
         Contato contato = new Contato();
         Telefone telefone = new Telefone();
         salvarContatos();
@@ -77,8 +77,9 @@ public class Agenda {
     }
 
 
-    private void carregarContatos() {
-        try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO_CONTATOS))) {
+    private void carregarContatos() throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader(ARQUIVO_CONTATOS));
+        try  {
             String linha;
             while ((linha = br.readLine()) != null) {
                 String[] dadosContato = linha.split(";");
@@ -111,8 +112,9 @@ public class Agenda {
         }
     }
 
-    private void salvarContatos() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CONTATOS))) {
+    private void salvarContatos() throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CONTATOS));
+        try  {
             for (Contato contato : contatos) {
                 bw.write(contato.getId() + ";" + contato.getNome() + ";" + contato.getSobreNome() + ";");
 

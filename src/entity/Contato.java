@@ -94,7 +94,7 @@ public class Contato {
 
         Contato novoContato = new Contato(nome, sobreNome, telefones);
 
-        if (!contatoExiste(novoContato, contatos) && !telefoneDuplicado(novoContato, contatos)) {
+        if (!contatoExiste(novoContato, contatos) || !telefoneDuplicado(novoContato, contatos)) {
             contatos.add(novoContato);
             System.out.println("Contato adicionado com sucesso!");
         } else {
@@ -141,7 +141,7 @@ public class Contato {
 
                 if (opcao == 1) {
                     List<Telefone> telefonesAtuais = contato.getTelefones();
-                    Telefone telefone = new Telefone(0);
+                    Telefone telefone = new Telefone("So pra usar metodos");
 
                     telefone.exibirTelefones(telefonesAtuais);
                     System.out.print("Digite o ID do telefone que deseja editar (ou 0 para adicionar novo): ");
@@ -187,7 +187,8 @@ public class Contato {
     private boolean telefoneDuplicado(Contato contato, List<Contato> contatos) {
         for (Contato c : contatos) {
             for (Telefone telefone : contato.getTelefones()) {
-                if (c.getTelefones().stream().anyMatch(t -> t.getNumero().equals(telefone.getNumero()))) {
+                if (c.getTelefones().stream().anyMatch(t -> t.getNumero().equals(telefone.getNumero())) &&
+                        c.getTelefones().stream().anyMatch(t -> t.getDdd().equals(telefone.getDdd()))) {
                     return true;
                 }
             }
